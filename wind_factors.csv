@@ -1,0 +1,223 @@
+type,field_name,factor
+Year Built,0,0.7
+Year Built,1,0.71
+Year Built,2,0.72
+Year Built,3,0.73
+Year Built,4,0.74
+Year Built,5,0.75
+Year Built,6,0.76
+Year Built,7,0.77
+Year Built,8,0.78
+Year Built,9,0.79
+Year Built,10,0.8
+Year Built,11,0.81
+Year Built,12,0.82
+Year Built,13,0.83
+Year Built,14,0.84
+Year Built,15,0.85
+Year Built,16,0.86
+Year Built,17,0.87
+Year Built,18,0.88
+Year Built,19,0.89
+Year Built,20,0.9
+Year Built,21,0.91
+Year Built,22,0.92
+Year Built,23,0.93
+Year Built,24,0.94
+Year Built,25,0.95
+Year Built,26,0.96
+Year Built,27,0.97
+Year Built,28,0.98
+Year Built,29,0.99
+Year Built,30,1
+Year Built,31,1.01
+Year Built,32,1.02
+Year Built,33,1.03
+Year Built,34,1.04
+Year Built,35,1.05
+Year Built,36,1.06
+Year Built,37,1.07
+Year Built,38,1.08
+Year Built,39,1.09
+Year Built,40,1.1
+Year Built,41,1.11
+Year Built,42,1.12
+Year Built,43,1.13
+Year Built,44,1.14
+Year Built,45,1.15
+Year Built,46,1.16
+Year Built,47,1.17
+Year Built,48,1.18
+Year Built,49,1.19
+Year Built,50,1.2
+Year Built,51,1.21
+Year Built,52,1.22
+Year Built,53,1.23
+Year Built,54,1.24
+Year Built,55,1.25
+Year Built,56,1.26
+Year Built,57,1.27
+Year Built,58,1.28
+Year Built,59,1.29
+Year Built,60,1.3
+Year Built,61,1.31
+Year Built,62,1.32
+Year Built,63,1.33
+Year Built,64,1.34
+Year Built,65,1.35
+Year Built,66,1.36
+Year Built,67,1.37
+Year Built,68,1.38
+Year Built,69,1.39
+Year Built,70,1.4
+Year Built,71,1.41
+Year Built,72,1.42
+Year Built,73,1.43
+Year Built,74,1.44
+Year Built,75,1.45
+Year Built,76,1.46
+Year Built,77,1.47
+Year Built,78,1.48
+Year Built,79,1.49
+Year Built,80,1.5
+Year Built,81,1.51
+Year Built,82,1.52
+Year Built,83,1.53
+Year Built,84,1.54
+Year Built,85,1.55
+Year Built,86,1.56
+Year Built,87,1.57
+Year Built,88,1.58
+Year Built,89,1.59
+Year Built,90,1.6
+Year Built,91,1.61
+Year Built,92,1.62
+Year Built,93,1.63
+Year Built,94,1.64
+Year Built,95,1.65
+Year Built,96,1.66
+Year Built,97,1.67
+Year Built,98,1.68
+Year Built,99,1.69
+Year Built,100,1.7
+Roof Age,0,0.950
+Roof Age,1,0.960
+Roof Age,2,0.970
+Roof Age,3,0.980
+Roof Age,4,0.990
+Roof Age,5,1.000
+Roof Age,6,1.010
+Roof Age,7,1.020
+Roof Age,8,1.030
+Roof Age,9,1.040
+Roof Age,10,1.050
+Roof Age,11,1.060
+Roof Age,12,1.070
+Roof Age,13,1.080
+Roof Age,14,1.090
+Roof Age,15,1.100
+Roof Age,16,1.110
+Roof Age,17,1.120
+Roof Age,18,1.130
+Roof Age,19,1.140
+Roof Age,20,1.150
+Roof Age,21,1.160
+Roof Age,22,1.170
+Roof Age,23,1.180
+Roof Age,24,1.190
+Roof Age,25,1.200
+Roof Age,26,1.210
+Roof Age,27,1.220
+Roof Age,28,1.230
+Roof Age,29,1.240
+Roof Age,30,1.250
+Roof Age,31,1.260
+Roof Age,32,1.270
+Roof Age,33,1.280
+Roof Age,34,1.290
+Roof Age,35,1.300
+Roof Age,36,1.310
+Roof Age,37,1.320
+Roof Age,38,1.330
+Roof Age,39,1.340
+Roof Age,40,1.350
+Wind Deductible TX-FL,1%,1.04
+Wind Deductible TX-FL,2%,1.03
+Wind Deductible TX-FL,3%,1.02
+Wind Deductible TX-FL,4%,1.01
+Wind Deductible TX-FL,5%,1
+Wind Deductible TX-FL,6%,0.99
+Wind Deductible TX-FL,7%,0.98
+Wind Deductible TX-FL,8%,0.97
+Wind Deductible TX-FL,9%,0.96
+Wind Deductible TX-FL,10%,0.95
+Wind Deductible VA-NJ,1%,1
+Wind Deductible VA-NJ,2%,0.995
+Wind Deductible VA-NJ,3%,0.99
+Wind Deductible VA-NJ,4%,0.985
+Wind Deductible VA-NJ,5%,0.98
+Wind Deductible VA-NJ,6%,0.975
+Wind Deductible VA-NJ,7%,0.97
+Wind Deductible VA-NJ,8%,0.965
+Wind Deductible VA-NJ,9%,0.96
+Wind Deductible VA-NJ,10%,0.955
+Roof Age,41,1.360
+Roof Age,42,1.370
+Roof Age,43,1.380
+Roof Age,44,1.390
+Roof Age,45,1.400
+Roof Age,46,1.410
+Roof Age,47,1.420
+Roof Age,48,1.430
+Roof Age,49,1.440
+Roof Age,50,1.450
+Roof Age,51,1.460
+Roof Age,52,1.470
+Roof Age,53,1.480
+Roof Age,54,1.490
+Roof Age,55,1.500
+Roof Age,56,1.510
+Roof Age,57,1.520
+Roof Age,58,1.530
+Roof Age,59,1.540
+Roof Age,60,1.550
+Roof Age,61,1.560
+Roof Age,62,1.570
+Roof Age,63,1.580
+Roof Age,64,1.590
+Roof Age,65,1.600
+Roof Age,66,1.610
+Roof Age,67,1.620
+Roof Age,68,1.630
+Roof Age,69,1.640
+Roof Age,70,1.650
+Roof Age,71,1.660
+Roof Age,72,1.670
+Roof Age,73,1.680
+Roof Age,74,1.690
+Roof Age,75,1.700
+Roof Age,76,1.710
+Roof Age,77,1.720
+Roof Age,78,1.730
+Roof Age,79,1.740
+Roof Age,80,1.750
+Roof Age,81,1.760
+Roof Age,82,1.770
+Roof Age,83,1.780
+Roof Age,84,1.790
+Roof Age,85,1.800
+Roof Age,86,1.810
+Roof Age,87,1.820
+Roof Age,88,1.830
+Roof Age,89,1.840
+Roof Age,90,1.850
+Roof Age,91,1.860
+Roof Age,92,1.870
+Roof Age,93,1.880
+Roof Age,94,1.890
+Roof Age,95,1.900
+Roof Age,96,1.910
+Roof Age,97,1.920
+Roof Age,98,1.930
+Roof Age,99,1.940
+Roof Age,100,1.950
