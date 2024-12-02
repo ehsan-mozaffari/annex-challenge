@@ -11,12 +11,12 @@ enum State:
   case NJ, VA, TX, FL
 
 object State:
-  given Schema[State] = Schema.derivedEnumeration[State].defaultStringBased
+  given Schema[State]    = Schema.derivedEnumeration[State].defaultStringBased
+
   given JsonCodec[State] = JsonCodec[State](
     JsonEncoder[String].contramap(_.toString),
     JsonDecoder[String].mapOrFail(s => State.values.find(_.toString == s).toRight(s"Invalid state: $s"))
   )
-
 
 case class Address(
   street: String,

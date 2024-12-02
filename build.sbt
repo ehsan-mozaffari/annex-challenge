@@ -20,7 +20,14 @@ lazy val commonSettings = Seq(
     "-source:future",
     "-Xmax-inlines",
     "64"
-  )
+  ),
+  testFrameworks += new TestFramework("zio.test.sbt.ZTestFramework")
+)
+
+lazy val testDependencies = Seq(
+  "dev.zio" %% "zio-test"          % zioVersion % Test,
+  "dev.zio" %% "zio-test-sbt"      % zioVersion % Test,
+  "dev.zio" %% "zio-test-magnolia" % zioVersion % Test
 )
 
 lazy val root = (project in file("."))
@@ -34,10 +41,11 @@ lazy val domain = (project in file("modules/domain"))
   .settings(
     commonSettings,
     libraryDependencies ++= Seq(
-      "dev.zio"                     %% "zio"        % zioVersion,
-      "dev.zio"                     %% "zio-json"   % zioJsonVersion,
-      "com.softwaremill.sttp.tapir" %% "tapir-core"              % tapirVersion,
-      "com.softwaremill.sttp.tapir" %% "tapir-json-zio"          % tapirVersion    )
+      "dev.zio"                     %% "zio"            % zioVersion,
+      "dev.zio"                     %% "zio-json"       % zioJsonVersion,
+      "com.softwaremill.sttp.tapir" %% "tapir-core"     % tapirVersion,
+      "com.softwaremill.sttp.tapir" %% "tapir-json-zio" % tapirVersion
+    ) ++ testDependencies
   )
 
 lazy val core = (project in file("modules/core"))
@@ -50,7 +58,7 @@ lazy val core = (project in file("modules/core"))
       "dev.zio" %% "zio-config"          % zioConfigVersion,
       "dev.zio" %% "zio-config-typesafe" % zioConfigVersion,
       "dev.zio" %% "zio-config-magnolia" % zioConfigVersion
-    )
+    ) ++ testDependencies
   )
   .dependsOn(domain, api)
 
@@ -65,6 +73,6 @@ lazy val api = (project in file("modules/api"))
       "com.softwaremill.sttp.tapir" %% "tapir-swagger-ui-bundle" % tapirVersion,
       "dev.zio"                     %% "zio-http"                % zioHttpVersion,
       "dev.zio"                     %% "zio-http-testkit"        % zioHttpVersion % Test
-    )
+    ) ++ testDependencies
   )
   .dependsOn(domain)

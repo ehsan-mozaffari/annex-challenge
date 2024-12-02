@@ -16,7 +16,7 @@ object Main extends ZIOAppDefault:
   val serverConfig = Server.Config.default.port(8080)
   val serverLayer  = ZLayer.succeed(serverConfig) >>> Server.live
 
-  val appLayer = RatingRepository.live >>> QuoteService.layer >>> QuoteControllerLive.layer
+  val appLayer = RatingRepository.live >>> QuoteService.layer >>> QuoteController.layer
 
   val serverProgram =
     for

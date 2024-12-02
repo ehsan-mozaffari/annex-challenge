@@ -20,7 +20,7 @@ class QuoteControllerLive(quoteService: QuoteService) extends QuoteController:
 
   lazy val routes = List(calculateQuote)
 
-object QuoteControllerLive:
+object QuoteController:
 
   val layer: ZLayer[QuoteService, Nothing, QuoteController] =
     ZLayer.fromFunction(QuoteControllerLive(_))
