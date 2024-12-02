@@ -1,0 +1,37 @@
+# sbt
+target/
+project/target/
+project/project/
+.bsp/
+
+# IDE
+.idea/
+.vscode/
+.metals/
+.bloop/
+.scala-build/
+metals.sbt
+.DS_Store
+
+# Logs
+*.log
+
+# Local configuration
+application-local.conf
+local.*
+
+# Compiled files
+*.class
+*.jar
+*.war
+*.ear
+
+# Cache
+.cache/
+.history/
+.lib/
+dist/*
+lib_managed/
+src_managed/
+project/boot/
+project/plugins/project/ 
