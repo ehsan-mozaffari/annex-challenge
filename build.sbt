@@ -36,8 +36,8 @@ lazy val domain = (project in file("modules/domain"))
     libraryDependencies ++= Seq(
       "dev.zio"                     %% "zio"        % zioVersion,
       "dev.zio"                     %% "zio-json"   % zioJsonVersion,
-      "com.softwaremill.sttp.tapir" %% "tapir-core" % tapirVersion
-    )
+      "com.softwaremill.sttp.tapir" %% "tapir-core"              % tapirVersion,
+      "com.softwaremill.sttp.tapir" %% "tapir-json-zio"          % tapirVersion    )
   )
 
 lazy val core = (project in file("modules/core"))

@@ -8,7 +8,7 @@ import sttp.tapir.server.ServerEndpoint
 import zio.*
 
 object QuoteEndpoints:
-  private val baseEndpoint = endpoint.in("api" / "homeowners_lite")
+  private val baseEndpoint = endpoint.in("api" / "homeowners-lite")
 
   val calculateQuoteEndpoint: PublicEndpoint[QuoteRequest, String, QuoteResult, Any] =
     baseEndpoint.post

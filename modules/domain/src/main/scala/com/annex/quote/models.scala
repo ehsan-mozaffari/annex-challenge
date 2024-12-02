@@ -3,14 +3,20 @@ package com.annex.quote
 import zio.json.*
 import sttp.tapir.*
 import sttp.tapir.generic.auto.*
+import sttp.tapir.json.zio.*
 
 import java.time.LocalDate
 
-enum State derives JsonCodec:
+enum State:
   case NJ, VA, TX, FL
 
 object State:
   given Schema[State] = Schema.derivedEnumeration[State].defaultStringBased
+  given JsonCodec[State] = JsonCodec[State](
+    JsonEncoder[String].contramap(_.toString),
+    JsonDecoder[String].mapOrFail(s => State.values.find(_.toString == s).toRight(s"Invalid state: $s"))
+  )
+
 
 case class Address(
   street: String,
