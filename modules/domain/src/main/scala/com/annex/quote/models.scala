@@ -4,7 +4,6 @@ import zio.json.*
 import sttp.tapir.*
 import sttp.tapir.generic.auto.*
 
-
 import java.time.LocalDate
 
 enum State derives JsonCodec:
@@ -14,25 +13,26 @@ object State:
   given Schema[State] = Schema.derivedEnumeration[State].defaultStringBased
 
 case class Address(
-    street: String,
-    city: String,
-    state: State,
-    zipCode: String
+  street: String,
+  city: String,
+  state: State,
+  zipCode: String
 ) derives JsonCodec
 
 object Address:
   given Schema[Address] = Schema.derived[Address]
 
 case class QuoteRequest(
-    riskAddress: Address,
-    policyEffectiveDate: LocalDate,
-    roofAge: Int,
-    yearBuilt: Int,
-    dwellingLimit: Int,
-    dwellingDeductiblePercent: Int,
-    contentsLimit: Int,
-    contentsDeductible: Int
+  riskAddress: Address,
+  policyEffectiveDate: LocalDate,
+  roofAge: Int,
+  yearBuilt: Int,
+  dwellingLimit: Int,
+  dwellingDeductiblePercent: Int,
+  contentsLimit: Int,
+  contentsDeductible: Int
 ) derives JsonCodec:
+
   def validate: Either[String, QuoteRequest] =
     for
       _ <- validateRoofAge
@@ -76,5 +76,5 @@ enum QuoteResult:
   case Quoted(premium: BigDecimal)
 
 object QuoteResult:
-  given JsonCodec[QuoteResult] = DeriveJsonCodec.gen 
-  given Schema[QuoteResult] = Schema.derived[QuoteResult]
+  given JsonCodec[QuoteResult] = DeriveJsonCodec.gen
+  given Schema[QuoteResult]    = Schema.derived[QuoteResult]
