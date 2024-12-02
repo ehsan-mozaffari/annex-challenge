@@ -3,6 +3,7 @@ package com.annex.quote.service
 import com.annex.quote.repository.RatingRepository
 import com.annex.quote.*
 import zio.*
+import com.annex.quote.repository.* 
 
 trait QuoteService:
   def calculateQuote(request: QuoteRequest): IO[String, QuoteResult]
@@ -21,15 +22,17 @@ class QuoteServiceLive(ratingRepository: RatingRepository) extends QuoteService:
     val age = request.policyEffectiveDate.getYear - request.yearBuilt
 
     for
-      yearBuiltFactor <- ratingRepository.getYearBuiltFactor(age)
-      roofAgeFactor <- ratingRepository.getRoofAgeFactor(request.roofAge)
-      windDeductibleFactor <- ratingRepository
-        .getWindDeductibleFactor(request.riskAddress.state.toString, request.dwellingDeductiblePercent)
-      aopDeductibleFactor <- ratingRepository
-        .getAOPDeductibleFactor(request.contentsDeductible)
+      windYearBuiltFactor <- ratingRepository.getFactor(RatingType.Wind, FactorType.YearBuilt, age.toString)
+      aopYearBuiltFactor <- ratingRepository.getFactor(RatingType.AOP, FactorType.YearBuilt, age.toString)
+      windRoofAgeFactor <- ratingRepository.getFactor(RatingType.Wind, FactorType.RoofAge, request.roofAge.toString)
+      aopRoofAgeFactor <- ratingRepository.getFactor(RatingType.AOP, FactorType.RoofAge, request.roofAge.toString)
+      windDeductibleFactor <- request.riskAddress.state match
+        case State.TX | State.FL => ratingRepository.getFactor(RatingType.Wind, FactorType.WindDeductibleTX_FL, request.dwellingDeductiblePercent.toString)
+        case State.VA | State.NJ => ratingRepository.getFactor(RatingType.Wind, FactorType.WindDeductibleVA_NJ, request.dwellingDeductiblePercent.toString)
+      aopDeductibleFactor <- ratingRepository.getFactor(RatingType.AOP, FactorType.AOPDeductible, request.contentsDeductible.toString)
 
-      windPremium = calculateWindPremium(tiv, yearBuiltFactor, roofAgeFactor, windDeductibleFactor)
-      aopPremium = calculateAOPPremium(tiv, yearBuiltFactor, roofAgeFactor, aopDeductibleFactor)
+      windPremium = calculateWindPremium(tiv, windYearBuiltFactor, windRoofAgeFactor, windDeductibleFactor)
+      aopPremium = calculateAOPPremium(tiv, aopYearBuiltFactor, aopRoofAgeFactor, aopDeductibleFactor)
       totalPremium = windPremium + aopPremium
     yield QuoteResult.Quoted(totalPremium)
 

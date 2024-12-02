@@ -3,8 +3,11 @@ package com.annex.quote.repository
 import zio.*
 import scala.io.Source
 
+enum RatingType:
+  case Wind, AOP
+
 enum FactorType:
-  case YearBuilt, RoofAge, WindDeductible, AOPDeductible
+  case YearBuilt, RoofAge, WindDeductibleTX_FL, WindDeductibleVA_NJ, AOPDeductible
 
 case class Factor(
     factorType: FactorType,
@@ -13,33 +16,24 @@ case class Factor(
 )
 
 trait RatingRepository:
-  def getYearBuiltFactor(age: Int): IO[String, BigDecimal]
-  def getRoofAgeFactor(age: Int): IO[String, BigDecimal]
-  def getWindDeductibleFactor(state: String, deductiblePercent: Int): IO[String, BigDecimal]
-  def getAOPDeductibleFactor(deductible: Int): IO[String, BigDecimal]
+  def getFactor(ratingType: RatingType, factorType: FactorType, fieldName: String): IO[String, BigDecimal]
 
-class RatingRepositoryLive(
-    factors: Ref[Map[FactorType, Map[String, BigDecimal]]]
+class RatingRepositoryLive(   
+    aopFactors: Ref[Map[FactorType, Map[String, BigDecimal]]],
+    windFactors: Ref[Map[FactorType, Map[String, BigDecimal]]]
 ) extends RatingRepository:
 
-  def getYearBuiltFactor(age: Int): IO[String, BigDecimal] =
-    factors.get.map(_.get(FactorType.YearBuilt).flatMap(_.get(age.toString)))
-      .map(_.toRight(s"Year built factor not found for age: $age"))
-      .absolve
+  def getFactor(ratingType: RatingType, factorType: FactorType, fieldName: String): IO[String, BigDecimal] =
+    val factors = ratingType match
+      case RatingType.AOP => aopFactors
+      case RatingType.Wind => windFactors
 
-  def getRoofAgeFactor(age: Int): IO[String, BigDecimal] =
-    factors.get.map(_.get(FactorType.RoofAge).flatMap(_.get(age.toString)))
-      .map(_.toRight(s"Roof age factor not found for age: $age"))
-      .absolve
+    val fieldNameStr = factorType match
+      case FactorType.WindDeductibleTX_FL | FactorType.WindDeductibleVA_NJ => s"$fieldName%"
+      case _ => fieldName
 
-  def getWindDeductibleFactor(state: String, deductiblePercent: Int): IO[String, BigDecimal] =
-    factors.get.map(_.get(FactorType.WindDeductible).flatMap(_.get(s"$deductiblePercent%")))
-      .map(_.toRight(s"Wind deductible factor not found for $deductiblePercent%"))
-      .absolve
-
-  def getAOPDeductibleFactor(deductible: Int): IO[String, BigDecimal] =
-    factors.get.map(_.get(FactorType.AOPDeductible).flatMap(_.get(deductible.toString)))
-      .map(_.toRight(s"AOP deductible factor not found for $deductible"))
+    factors.get.map(_.get(factorType).flatMap(_.get(fieldNameStr)))
+      .map(_.toRight(s"Factor not found for $factorType $fieldName"))
       .absolve
 
 object RatingRepository:
@@ -48,8 +42,9 @@ object RatingRepository:
       for
         windFactors <- loadFactors("wind_factors.csv").mapError(_.getMessage)
         aopFactors <- loadFactors("aop_factors.csv").mapError(_.getMessage)
-        ref <- Ref.make(mergeMaps(windFactors, aopFactors))
-      yield RatingRepositoryLive(ref)
+        windRef <- Ref.make(windFactors)
+        aopRef <- Ref.make(aopFactors)
+      yield RatingRepositoryLive(aopRef, windRef)
     }
 
   private def loadFactors(filename: String): IO[Throwable, Map[FactorType, Map[String, BigDecimal]]] =
@@ -68,7 +63,8 @@ object RatingRepository:
               val factorType = typeStr match
                 case "Year Built" => FactorType.YearBuilt
                 case "Roof Age" => FactorType.RoofAge
-                case s if s.startsWith("Wind Deductible") => FactorType.WindDeductible
+                case s if s.startsWith("Wind Deductible TX-FL") => FactorType.WindDeductibleTX_FL
+                case s if s.startsWith("Wind Deductible VA-NJ") => FactorType.WindDeductibleVA_NJ
                 case "AOP Deductible" => FactorType.AOPDeductible
                 case other => throw new RuntimeException(s"Unknown factor type: $other")
               
@@ -82,11 +78,3 @@ object RatingRepository:
         }
       }
     }
-
-  private def mergeMaps(
-      m1: Map[FactorType, Map[String, BigDecimal]],
-      m2: Map[FactorType, Map[String, BigDecimal]]
-  ): Map[FactorType, Map[String, BigDecimal]] =
-    (m1.keySet ++ m2.keySet).map { key =>
-      key -> (m1.getOrElse(key, Map.empty) ++ m2.getOrElse(key, Map.empty))
-    }.toMap 

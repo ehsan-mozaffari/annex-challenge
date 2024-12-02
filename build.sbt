@@ -25,7 +25,7 @@ lazy val commonSettings = Seq(
 lazy val root = (project in file("."))
   .settings(
     name := "annex-challenge",
-    Compile / run := (api / Compile / run).evaluated
+    Compile / run := (core / Compile / run).evaluated
   )
   .aggregate(core, domain, api)
 

@@ -1,6 +1,6 @@
 package com.annex.quote
 
-import com.annex.domain.*
+import com.annex.quote.*
 import sttp.tapir.*
 import sttp.tapir.generic.auto.*
 import sttp.tapir.json.zio.*
